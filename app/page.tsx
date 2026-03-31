@@ -1,15 +1,16 @@
 "use client"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
+import { useSearchParams } from "next/navigation"
 import { Sidebar } from "@/components/sidebar"
 import { Dashboard } from "@/components/dashboard"
 import { Calendar } from "@/components/calendar"
 import { ClientProfile } from "@/components/client-profile"
 import { BookingChat } from "@/components/booking-chat"
 import { Analytics } from "@/components/analytics"
-import { BarberPortfolio } from "@/components/barber-portfolio"
 import { NotificationsCenter } from "@/components/notifications-center"
 import { SettingsView } from "@/components/settings-view"
+import { PortfolioManager } from "@/components/portfolio-manager"
 
 export type PageView =
   | "dashboard"
@@ -22,7 +23,28 @@ export type PageView =
   | "settings"
 
 export default function Home() {
+  const searchParams = useSearchParams()
   const [currentView, setCurrentView] = useState<PageView>("dashboard")
+
+  useEffect(() => {
+    const requestedView = searchParams.get("view")
+    if (!requestedView) return
+
+    const allowedViews: PageView[] = [
+      "dashboard",
+      "calendar",
+      "clients",
+      "chat",
+      "analytics",
+      "portfolio",
+      "notifications",
+      "settings",
+    ]
+
+    if (allowedViews.includes(requestedView as PageView)) {
+      setCurrentView(requestedView as PageView)
+    }
+  }, [searchParams])
 
   const renderView = () => {
     switch (currentView) {
@@ -37,7 +59,7 @@ export default function Home() {
       case "analytics":
         return <Analytics />
       case "portfolio":
-        return <BarberPortfolio />
+        return <PortfolioManager />
       case "notifications":
         return <NotificationsCenter />
       case "settings":

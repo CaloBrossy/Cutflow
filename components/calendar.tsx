@@ -1,6 +1,7 @@
 "use client"
 
 import { useState } from "react"
+import { useSearchParams } from "next/navigation"
 import { 
   ChevronLeft, 
   ChevronRight, 
@@ -94,8 +95,10 @@ const weekDays = ["Lun", "Mar", "Mie", "Jue", "Vie", "Sab", "Dom"]
 const dates = [29, 30, 31, 1, 2, 3, 4]
 
 export function Calendar() {
+  const searchParams = useSearchParams()
   const [selectedDate, setSelectedDate] = useState(2) // Index for March 31
   const [selectedBarber, setSelectedBarber] = useState("Marcus")
+  const bookingFor = searchParams.get("bookingFor")
 
   return (
     <div className="p-4 md:p-6 lg:p-8 space-y-6">
@@ -104,6 +107,11 @@ export function Calendar() {
         <div>
           <h1 className="text-2xl font-bold text-foreground">Agenda</h1>
           <p className="text-muted-foreground mt-1">Gestiona tus turnos</p>
+          {bookingFor && (
+            <p className="text-sm text-primary mt-2">
+              Reserva iniciada desde la pagina publica: <span className="font-medium">/{bookingFor}</span>
+            </p>
+          )}
         </div>
         <Button className="bg-primary hover:bg-primary/90 text-primary-foreground">
           <Plus className="w-4 h-4 mr-2" />

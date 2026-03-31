@@ -2,6 +2,7 @@
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react"
 import { toast } from "@/hooks/use-toast"
+import { initialPortfolioPage, type PortfolioImage, type PortfolioPageData, type PortfolioReview, type PortfolioService, type WorkingHour } from "@/lib/portfolio-data"
 
 type NotificationType = "booking" | "client" | "payment" | "system"
 
@@ -28,10 +29,17 @@ interface AppStateContextValue {
   notifications: AppNotification[]
   unreadCount: number
   settings: NotificationSettings
+  portfolioPage: PortfolioPageData
   markNotificationAsRead: (id: string) => void
   markAllNotificationsAsRead: () => void
   removeNotification: (id: string) => void
   updateSetting: <K extends keyof NotificationSettings>(key: K, value: NotificationSettings[K]) => void
+  updatePortfolioPage: (updates: Partial<PortfolioPageData>) => void
+  updatePortfolioService: (id: number, updates: Partial<PortfolioService>) => void
+  updatePortfolioImage: (id: number, updates: Partial<PortfolioImage>) => void
+  updatePortfolioReview: (id: number, updates: Partial<PortfolioReview>) => void
+  updateWorkingHour: (day: string, hours: string) => void
+  setPortfolioStatus: (status: PortfolioPageData["status"]) => void
 }
 
 const initialNotifications: AppNotification[] = [
@@ -109,7 +117,24 @@ function getRelativeLabel(timestamp: number) {
 export function AppStateProvider({ children }: { children: React.ReactNode }) {
   const [notifications, setNotifications] = useState<AppNotification[]>(initialNotifications)
   const [settings, setSettings] = useState<NotificationSettings>(initialSettings)
+  const [portfolioPage, setPortfolioPage] = useState<PortfolioPageData>(initialPortfolioPage)
   const templateIndexRef = useRef(0)
+
+  useEffect(() => {
+    const storedPortfolioPage = window.localStorage.getItem("cutflow-portfolio-page")
+    if (!storedPortfolioPage) return
+
+    try {
+      const parsedPortfolioPage = JSON.parse(storedPortfolioPage) as PortfolioPageData
+      setPortfolioPage(parsedPortfolioPage)
+    } catch {
+      window.localStorage.removeItem("cutflow-portfolio-page")
+    }
+  }, [])
+
+  useEffect(() => {
+    window.localStorage.setItem("cutflow-portfolio-page", JSON.stringify(portfolioPage))
+  }, [portfolioPage])
 
   const unreadCount = useMemo(
     () => notifications.filter((notification) => !notification.read).length,
@@ -139,6 +164,42 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
 
   const removeNotification = useCallback((id: string) => {
     setNotifications((current) => current.filter((notification) => notification.id !== id))
+  }, [])
+
+  const updatePortfolioPage = useCallback((updates: Partial<PortfolioPageData>) => {
+    setPortfolioPage((current) => ({ ...current, ...updates }))
+  }, [])
+
+  const updatePortfolioService = useCallback((id: number, updates: Partial<PortfolioService>) => {
+    setPortfolioPage((current) => ({
+      ...current,
+      services: current.services.map((service) => (service.id === id ? { ...service, ...updates } : service)),
+    }))
+  }, [])
+
+  const updatePortfolioImage = useCallback((id: number, updates: Partial<PortfolioImage>) => {
+    setPortfolioPage((current) => ({
+      ...current,
+      images: current.images.map((image) => (image.id === id ? { ...image, ...updates } : image)),
+    }))
+  }, [])
+
+  const updatePortfolioReview = useCallback((id: number, updates: Partial<PortfolioReview>) => {
+    setPortfolioPage((current) => ({
+      ...current,
+      reviews: current.reviews.map((review) => (review.id === id ? { ...review, ...updates } : review)),
+    }))
+  }, [])
+
+  const updateWorkingHour = useCallback((day: string, hours: string) => {
+    setPortfolioPage((current) => ({
+      ...current,
+      workingHours: current.workingHours.map((item) => (item.day === day ? { ...item, hours } : item)),
+    }))
+  }, [])
+
+  const setPortfolioStatus = useCallback((status: PortfolioPageData["status"]) => {
+    setPortfolioPage((current) => ({ ...current, status }))
   }, [])
 
   useEffect(() => {
@@ -200,12 +261,34 @@ export function AppStateProvider({ children }: { children: React.ReactNode }) {
       notifications,
       unreadCount,
       settings,
+      portfolioPage,
       markNotificationAsRead,
       markAllNotificationsAsRead,
       removeNotification,
       updateSetting,
+      updatePortfolioPage,
+      updatePortfolioService,
+      updatePortfolioImage,
+      updatePortfolioReview,
+      updateWorkingHour,
+      setPortfolioStatus,
     }),
-    [markAllNotificationsAsRead, markNotificationAsRead, notifications, removeNotification, settings, unreadCount, updateSetting]
+    [
+      markAllNotificationsAsRead,
+      markNotificationAsRead,
+      notifications,
+      portfolioPage,
+      removeNotification,
+      setPortfolioStatus,
+      settings,
+      unreadCount,
+      updatePortfolioImage,
+      updatePortfolioPage,
+      updatePortfolioReview,
+      updatePortfolioService,
+      updateSetting,
+      updateWorkingHour,
+    ]
   )
 
   return <AppStateContext.Provider value={value}>{children}</AppStateContext.Provider>
