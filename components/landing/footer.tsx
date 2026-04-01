@@ -9,11 +9,11 @@ export function Footer() {
   return (
     <footer className="relative overflow-hidden">
       <div className="relative py-32">
-        <div className="absolute inset-0 -z-10"><div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-accent/10 blur-[150px]" /></div>
+        <div className="absolute inset-0 -z-10"><div className="absolute left-1/2 top-1/2 h-[600px] w-[600px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#61210f]/20 blur-[150px]" /></div>
         <div className="mx-auto max-w-4xl px-4 text-center sm:px-6 lg:px-8">
-          <Reveal><h2 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">¿Listo para hacer crecer<br /><span className="text-accent">tu barbería?</span></h2></Reveal>
-          <Reveal delay={0.2}><p className="mb-10 text-xl text-muted-foreground">Únete a barberías que ya gestionan su negocio con Flowcut.</p></Reveal>
-          <Reveal delay={0.3}><Magnetic><Button size="lg" asChild className="glow-accent-strong h-14 rounded-full px-10 text-lg"><Link href="/register">Empezar gratis</Link></Button></Magnetic></Reveal>
+          <Reveal><h2 className="barber-title barber-ink mb-6 text-4xl sm:text-5xl md:text-6xl">Ready to run<br /><span className="barber-accent">your shop right?</span></h2></Reveal>
+          <Reveal delay={0.2}><p className="barber-muted mb-10 text-xl">Únete a barberías que ya gestionan su negocio con Flowcut.</p></Reveal>
+          <Reveal delay={0.3}><Magnetic><Button size="lg" asChild className="barber-chip h-14 rounded-full px-10 text-lg"><Link href="/register">Empezar gratis</Link></Button></Magnetic></Reveal>
         </div>
       </div>
 
@@ -23,14 +23,14 @@ export function Footer() {
             <div className="lg:col-span-2">
               <Reveal>
                 <Link href="/" className="group flex items-center gap-3">
-                  <div className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-accent transition-transform duration-300 group-hover:scale-110">
-                    <Scissors className="h-5 w-5 text-accent-foreground" />
-                    <div className="absolute inset-0 rounded-xl bg-accent opacity-0 blur-xl transition-opacity group-hover:opacity-50" />
+                  <div className="barber-chip relative flex h-11 w-11 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110">
+                    <Scissors className="h-5 w-5 text-[#260e01]" />
+                    <div className="absolute inset-0 rounded-xl bg-[#fff3db] opacity-0 blur-xl transition-opacity group-hover:opacity-35" />
                   </div>
-                  <span className="text-2xl font-bold tracking-tight">Flowcut</span>
+                  <span className="barber-title barber-ink text-2xl">Flowcut</span>
                 </Link>
               </Reveal>
-              <Reveal delay={0.1}><p className="mt-4 max-w-sm text-muted-foreground">La plataforma de gestión para barberías y peluquerías modernas.</p></Reveal>
+              <Reveal delay={0.1}><p className="barber-muted mt-4 max-w-sm">La plataforma de gestión para barberías y peluquerías modernas.</p></Reveal>
             </div>
             <FooterColumn title="Producto" links={[["Características", "#beneficios"], ["Precios", "#precios"], ["FAQ", "#faq"]]} />
             <FooterColumn title="Empresa" links={[["Sobre nosotros", "#"], ["Blog", "#"], ["Contacto", "#"]]} />
@@ -39,7 +39,7 @@ export function Footer() {
           <Reveal delay={0.4}>
             <div className="mt-16 flex flex-col items-center justify-between gap-4 border-t border-border/50 pt-8 md:flex-row">
               <p className="text-sm text-muted-foreground">© {new Date().getFullYear()} Flowcut. Todos los derechos reservados.</p>
-              <p className="text-sm text-muted-foreground">Hecho con <span className="text-accent">amor</span> para barberías</p>
+              <p className="barber-muted text-sm">Hecho con <span className="barber-ink">amor</span> para barberías</p>
             </div>
           </Reveal>
         </div>
@@ -52,11 +52,11 @@ function FooterColumn({ title, links }: { title: string; links: [string, string]
   return (
     <div>
       <Reveal delay={0.2}>
-        <h4 className="mb-4 font-semibold">{title}</h4>
+        <h4 className="barber-ink mb-4 font-semibold">{title}</h4>
         <ul className="space-y-3">
           {links.map(([label, href]) => (
             <li key={label}>
-              <Link href={href} className="text-sm text-muted-foreground transition-colors hover:text-accent">{label}</Link>
+              <Link href={href} className="barber-muted text-sm transition-colors hover:text-[#fff3db]">{label}</Link>
             </li>
           ))}
         </ul>

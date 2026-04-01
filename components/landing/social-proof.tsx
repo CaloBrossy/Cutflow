@@ -15,14 +15,14 @@ const logos = ["The Gentleman", "Urban Cuts", "Barber Studio", "Classic Barber",
 
 export function SocialProof() {
   return (
-    <section className="relative overflow-hidden py-24">
+    <section className="relative overflow-hidden py-24" style={{ background: "linear-gradient(180deg, rgba(18,13,10,0.96), rgba(15,11,9,1))" }}>
       <div className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-border to-transparent" />
       <Reveal className="mb-16">
-        <p className="mb-8 text-center text-sm uppercase tracking-widest text-muted-foreground">Barberías que confían en nosotros</p>
+        <p className="barber-kicker barber-muted mb-8 text-center text-[11px]">Barberías que confían en nosotros</p>
         <Marquee className="py-4">
           {logos.map((logo, i) => (
-            <div key={i} className="cursor-default px-8 text-xl font-semibold text-muted-foreground/50 transition-colors hover:text-muted-foreground">
-              <span className="mr-2 text-accent">*</span>{logo}
+            <div key={i} className="barber-muted cursor-default px-8 text-xl font-semibold transition-colors hover:text-[#fff3db]">
+              <span className="mr-2 text-[#fff3db]">*</span>{logo}
             </div>
           ))}
         </Marquee>
@@ -31,17 +31,17 @@ export function SocialProof() {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <Reveal>
           <div className="mb-12 text-center">
-            <div className="mb-4 inline-flex items-center gap-1">{[...Array(5)].map((_, i) => <Star key={i} className="h-5 w-5 fill-accent text-accent" />)}</div>
-            <p className="text-muted-foreground">Valoración promedio de <span className="font-semibold text-foreground">4.9/5</span> de más de 500 barberías</p>
+            <div className="mb-4 inline-flex items-center gap-1">{[...Array(5)].map((_, i) => <Star key={i} className="h-5 w-5 fill-[#fff3db] text-[#fff3db]" />)}</div>
+            <p className="barber-muted">Valoración promedio de <span className="barber-ink font-semibold">4.9/5</span> de más de 500 barberías</p>
           </div>
         </Reveal>
         <Marquee reverse>
           {testimonials.map((testimonial, i) => (
-            <div key={i} className="mx-4 w-[350px] shrink-0 rounded-2xl border border-border/50 bg-card/50 p-6 backdrop-blur-sm transition-colors hover:border-accent/30">
-              <p className="mb-4 text-muted-foreground">&ldquo;{testimonial.text}&rdquo;</p>
+            <div key={i} className="barber-card mx-4 w-[350px] shrink-0 rounded-2xl p-6 transition-colors">
+              <p className="barber-muted mb-4">&ldquo;{testimonial.text}&rdquo;</p>
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full bg-accent/20 font-semibold text-accent">{testimonial.name.charAt(0)}</div>
-                <div><p className="text-sm font-medium">{testimonial.name}</p><p className="text-xs text-muted-foreground">{testimonial.role}</p></div>
+                <div className="barber-chip flex h-10 w-10 items-center justify-center rounded-full font-semibold">{testimonial.name.charAt(0)}</div>
+                <div><p className="barber-ink text-sm font-medium">{testimonial.name}</p><p className="barber-muted text-xs">{testimonial.role}</p></div>
               </div>
             </div>
           ))}

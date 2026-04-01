@@ -135,8 +135,8 @@
   body {
     @apply bg-background text-foreground;
     background-image:
-      radial-gradient(circle at top, oklch(0.75 0.18 165 / 0.12), transparent 26%),
-      radial-gradient(circle at 85% 20%, oklch(0.74 0.16 155 / 0.08), transparent 20%);
+      radial-gradient(circle at top, rgba(255, 243, 219, 0.07), transparent 26%),
+      radial-gradient(circle at 85% 20%, rgba(97, 33, 15, 0.12), transparent 20%);
   }
 
   html,
@@ -289,4 +289,56 @@ html {
 
 .perspective-1000 {
   perspective: 1000px;
+}
+
+.barber-page {
+  background:
+    radial-gradient(circle at top, rgba(255, 243, 219, 0.08), transparent 24%),
+    radial-gradient(circle at 80% 20%, rgba(97, 33, 15, 0.22), transparent 22%),
+    linear-gradient(180deg, #120d0a 0%, #0f0b09 100%);
+}
+
+.barber-card {
+  background: linear-gradient(180deg, rgba(38, 14, 1, 0.76), rgba(18, 9, 5, 0.94));
+  border: 1px solid rgba(255, 243, 219, 0.09);
+  box-shadow: 0 24px 80px rgba(0, 0, 0, 0.3);
+}
+
+.barber-soft {
+  background: linear-gradient(180deg, rgba(255, 243, 219, 0.08), rgba(97, 33, 15, 0.1));
+}
+
+.barber-chip {
+  background: #fff3db;
+  color: #260e01;
+}
+
+.barber-ink {
+  color: #fff3db;
+}
+
+.barber-muted {
+  color: rgba(255, 243, 219, 0.72);
+}
+
+.barber-stroke {
+  border-color: rgba(255, 243, 219, 0.12);
+}
+
+.barber-title {
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: -0.09em;
+  line-height: 0.88;
+}
+
+.barber-kicker {
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #fff3db;
+}
+
+.barber-accent {
+  color: #fff3db;
+  text-shadow: 0 0 28px rgba(255, 243, 219, 0.18);
 }

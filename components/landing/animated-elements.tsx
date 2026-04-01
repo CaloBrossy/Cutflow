@@ -127,8 +127,8 @@ export function Marquee({ children, className, reverse = false }: { children: Re
 export function GlowingBorder({ children, className }: { children: ReactNode; className?: string }) {
   const mouse = useMousePosition()
   return (
-    <div className={cn("relative overflow-hidden rounded-2xl p-[1px]", className)} style={{ background: `radial-gradient(circle at ${50 + mouse.x * 20}% ${50 + mouse.y * 20}%, oklch(0.72 0.11 178 / 0.5), transparent 50%)` }}>
-      <div className="relative rounded-2xl bg-card">{children}</div>
+    <div className={cn("relative overflow-hidden rounded-2xl p-[1px]", className)} style={{ background: `radial-gradient(circle at ${50 + mouse.x * 20}% ${50 + mouse.y * 20}%, rgba(255,243,219,0.32), rgba(97,33,15,0.22) 34%, transparent 58%)` }}>
+      <div className="barber-card relative rounded-2xl">{children}</div>
     </div>
   )
 }

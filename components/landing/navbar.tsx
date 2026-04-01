@@ -33,13 +33,13 @@ export function Navbar() {
   }, [lastScrollY])
 
   return (
-    <header className={cn("fixed left-0 right-0 top-0 z-50 transition-all duration-500", scrolled ? "border-b border-accent/10 bg-background/72 backdrop-blur-2xl" : "bg-transparent", hidden ? "-translate-y-full" : "translate-y-0")}>
+    <header className={cn("fixed left-0 right-0 top-0 z-50 transition-all duration-500", scrolled ? "border-b border-[#fff3db]/10 bg-[#120d0a]/80 backdrop-blur-2xl" : "bg-transparent", hidden ? "-translate-y-full" : "translate-y-0")}>
       <div className="mx-auto flex h-20 max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
         <Magnetic strength={0.2}>
           <Link href="/" className="group flex items-center gap-3">
-            <div className="relative flex h-10 w-10 items-center justify-center rounded-xl bg-accent transition-transform duration-300 group-hover:scale-110">
-              <Scissors className="h-5 w-5 text-accent-foreground" />
-              <div className="absolute inset-0 rounded-xl bg-accent opacity-0 blur-xl transition-opacity group-hover:opacity-50" />
+            <div className="barber-chip relative flex h-10 w-10 items-center justify-center rounded-xl transition-transform duration-300 group-hover:scale-110">
+              <Scissors className="h-5 w-5 text-[#260e01]" />
+              <div className="absolute inset-0 rounded-xl bg-[#fff3db] opacity-0 blur-xl transition-opacity group-hover:opacity-35" />
             </div>
             <span className="street-title text-xl tracking-tight">Flowcut</span>
           </Link>
@@ -50,7 +50,7 @@ export function Navbar() {
             <Magnetic key={link.href} strength={0.15}>
               <Link href={link.href} className="street-kicker group relative px-4 py-2 text-[11px] text-muted-foreground transition-colors hover:text-foreground">
                 {link.label}
-                <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-accent transition-all duration-300 group-hover:w-1/2" />
+                <span className="absolute bottom-0 left-1/2 h-[2px] w-0 -translate-x-1/2 bg-[#fff3db] transition-all duration-300 group-hover:w-1/2" />
               </Link>
             </Magnetic>
           ))}
@@ -63,7 +63,7 @@ export function Navbar() {
             </Button>
           </Magnetic>
           <Magnetic strength={0.2}>
-            <Button asChild className="glow-accent rounded-full px-6">
+            <Button asChild className="barber-chip rounded-full px-6">
               <Link href="/register">Probar gratis</Link>
             </Button>
           </Magnetic>
