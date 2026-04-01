@@ -15,12 +15,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { cn } from "@/lib/utils"
-
-const timeSlots = [
-  "9:00 AM", "9:30 AM", "10:00 AM", "10:30 AM", "11:00 AM", "11:30 AM",
-  "12:00 PM", "12:30 PM", "1:00 PM", "1:30 PM", "2:00 PM", "2:30 PM",
-  "3:00 PM", "3:30 PM", "4:00 PM", "4:30 PM", "5:00 PM", "5:30 PM", "6:00 PM"
-]
+import { useAppState } from "@/providers/app-state-provider"
 
 const appointments = [
   { 
@@ -96,9 +91,14 @@ const dates = [29, 30, 31, 1, 2, 3, 4]
 
 export function Calendar() {
   const searchParams = useSearchParams()
+  const { appointments, clients, bookingSlots, todayAppointments } = useAppState()
   const [selectedDate, setSelectedDate] = useState(2) // Index for March 31
   const [selectedBarber, setSelectedBarber] = useState("Marcus")
   const bookingFor = searchParams.get("bookingFor")
+  const clientMap = Object.fromEntries(clients.map((client) => [client.id, client]))
+  const visibleAppointments = appointments.filter((appointment) => appointment.barber === selectedBarber && appointment.status !== "cancelled")
+  const busySlots = visibleAppointments.reduce((sum, appointment) => sum + appointment.duration, 0)
+  const visibleTodayCount = todayAppointments.filter((appointment) => appointment.barber === selectedBarber).length
 
   return (
     <div className="p-4 md:p-6 lg:p-8 space-y-6">
@@ -213,8 +213,9 @@ export function Calendar() {
           <div className="relative">
             {/* Time slots */}
             <div className="divide-y divide-border">
-              {timeSlots.map((time, index) => {
-                const appointment = appointments.find(apt => apt.startSlot === index)
+              {bookingSlots.map((time, index) => {
+                const appointment = visibleAppointments.find(apt => apt.startSlot === index)
+                const client = appointment ? clientMap[appointment.clientId] : null
                 
                 return (
                   <div 
@@ -241,14 +242,14 @@ export function Calendar() {
                           <div className="flex items-start justify-between h-full">
                             <div className="flex items-center gap-3">
                               <Avatar className="w-8 h-8 border border-primary/30">
-                                <AvatarImage src={appointment.avatar} />
+                                <AvatarImage src={client?.avatar} />
                                 <AvatarFallback className="text-xs bg-primary/20 text-primary">
-                                  {appointment.initials}
+                                  {client?.initials}
                                 </AvatarFallback>
                               </Avatar>
                               <div>
-                                <p className="text-sm font-medium text-foreground">{appointment.client}</p>
-                                <p className="text-xs text-muted-foreground">{appointment.service}</p>
+                                <p className="text-sm font-medium text-foreground">{client?.name}</p>
+                                <p className="text-xs text-muted-foreground">{appointment.service} · {appointment.time}</p>
                               </div>
                             </div>
                             <Button variant="ghost" size="icon" className="w-8 h-8 opacity-0 group-hover:opacity-100 transition-opacity">
@@ -279,7 +280,7 @@ export function Calendar() {
                 <User className="w-5 h-5 text-primary" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-foreground">6</p>
+                <p className="text-2xl font-bold text-foreground">{visibleTodayCount}</p>
                 <p className="text-sm text-muted-foreground">Turnos</p>
               </div>
             </div>
@@ -293,7 +294,7 @@ export function Calendar() {
                 <Clock className="w-5 h-5 text-success" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-foreground">5.5h</p>
+                <p className="text-2xl font-bold text-foreground">{(busySlots * 0.5).toFixed(1)}h</p>
                 <p className="text-sm text-muted-foreground">Tiempo ocupado</p>
               </div>
             </div>
@@ -307,7 +308,7 @@ export function Calendar() {
                 <Plus className="w-5 h-5 text-warning" />
               </div>
               <div>
-                <p className="text-2xl font-bold text-foreground">2</p>
+                <p className="text-2xl font-bold text-foreground">{Math.max(bookingSlots.length - busySlots, 0)}</p>
                 <p className="text-sm text-muted-foreground">Espacios libres</p>
               </div>
             </div>

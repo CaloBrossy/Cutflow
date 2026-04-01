@@ -16,7 +16,7 @@ import {
   PanelLeftOpen
 } from "lucide-react"
 import { cn } from "@/lib/utils"
-import type { PageView } from "@/app/page"
+import type { PageView } from "@/app/dashboard/page"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { AnimatedNavIcon } from "@/components/animated-nav-icon"
@@ -31,14 +31,14 @@ const navItems = [
   { id: "dashboard" as PageView, label: "Panel", icon: LayoutDashboard, variant: "dashboard" as const },
   { id: "calendar" as PageView, label: "Agenda", icon: Calendar, variant: "calendar" as const },
   { id: "clients" as PageView, label: "Clientes", icon: Users, variant: "clients" as const },
-  { id: "chat" as PageView, label: "Reservas", icon: MessageSquare, badge: 3, variant: "chat" as const },
+  { id: "chat" as PageView, label: "Reservas", icon: MessageSquare, variant: "chat" as const },
   { id: "analytics" as PageView, label: "Analiticas", icon: BarChart3, variant: "analytics" as const },
   { id: "portfolio" as PageView, label: "Mi pagina", icon: Globe, variant: "portfolio" as const },
 ]
 
 export function Sidebar({ currentView, onNavigate }: SidebarProps) {
   const [hoveredItem, setHoveredItem] = useState<PageView | null>(null)
-  const { unreadCount, settings, updateSetting } = useAppState()
+  const { unreadCount, unreadInboxCount, settings, brandSettings, updateSetting } = useAppState()
   const isCompact = settings.compactSidebar
 
   return (
@@ -50,12 +50,16 @@ export function Sidebar({ currentView, onNavigate }: SidebarProps) {
     >
       {/* Logo */}
       <div className={cn("flex items-center border-b border-sidebar-border", isCompact ? "justify-center px-3 py-5" : "gap-3 px-6 py-5")}>
-        <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary">
-          <Scissors className="w-5 h-5 text-primary-foreground" />
+        <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary overflow-hidden">
+          {brandSettings.logo ? (
+            <img src={brandSettings.logo} alt={brandSettings.brandName} className="w-full h-full object-cover" />
+          ) : (
+            <Scissors className="w-5 h-5 text-primary-foreground" />
+          )}
         </div>
         {!isCompact && (
           <div>
-            <h1 className="text-lg font-semibold text-sidebar-foreground tracking-tight">Clippr</h1>
+            <h1 className="text-lg font-semibold text-sidebar-foreground tracking-tight">{brandSettings.brandName || "Flowcut"}</h1>
             <p className="text-xs text-muted-foreground">Suite Pro</p>
           </div>
         )}
@@ -86,9 +90,9 @@ export function Sidebar({ currentView, onNavigate }: SidebarProps) {
                 isHovered={hoveredItem === item.id}
               />
               {!isCompact && <span className="flex-1 text-left">{item.label}</span>}
-              {item.badge && !isCompact && (
+              {item.id === "chat" && unreadInboxCount > 0 && !isCompact && (
                 <Badge variant="secondary" className="bg-primary text-primary-foreground text-xs px-2 py-0.5">
-                  {item.badge}
+                  {unreadInboxCount}
                 </Badge>
               )}
             </button>

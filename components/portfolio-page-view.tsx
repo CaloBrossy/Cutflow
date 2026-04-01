@@ -22,6 +22,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { cn } from "@/lib/utils"
 import type { PortfolioPageData } from "@/lib/portfolio-data"
+import { useAppState } from "@/providers/app-state-provider"
 
 interface PortfolioPageViewProps {
   page: PortfolioPageData
@@ -35,9 +36,10 @@ export function PortfolioPageView({
   page,
   mode = "public",
   publicUrl,
-  bookingHref = "/?view=calendar",
+  bookingHref = "/dashboard?view=calendar",
   onEditClick,
 }: PortfolioPageViewProps) {
+  const { brandSettings } = useAppState()
   const [selectedFilter, setSelectedFilter] = useState<"all" | "featured">("all")
   const [likedImages, setLikedImages] = useState<number[]>([])
 
@@ -81,6 +83,15 @@ export function PortfolioPageView({
             </Avatar>
 
             <div className="flex-1 pt-4">
+              <div className="mb-4 flex items-center gap-3">
+                <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-primary/10 overflow-hidden">
+                  {brandSettings.logo ? <img src={brandSettings.logo} alt={brandSettings.brandName} className="h-full w-full object-cover" /> : <Scissors className="w-5 h-5 text-primary" />}
+                </div>
+                <div>
+                  <p className="text-sm font-semibold text-foreground">{brandSettings.brandName || page.businessName}</p>
+                  <p className="text-xs text-muted-foreground">Branding aplicado automaticamente</p>
+                </div>
+              </div>
               <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
                 <div>
                   <div className="flex items-center gap-3">

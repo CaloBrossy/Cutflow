@@ -16,13 +16,14 @@ import {
 } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useTheme } from "@/components/theme-provider"
+import { useAppState } from "@/providers/app-state-provider"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Progress } from "@/components/ui/progress"
 import { cn } from "@/lib/utils"
-import type { PageView } from "@/app/page"
+import type { PageView } from "@/app/dashboard/page"
 
 interface DashboardProps {
   onNavigate: (view: PageView) => void
@@ -106,6 +107,7 @@ const aiSuggestions = [
 
 export function Dashboard({ onNavigate }: DashboardProps) {
   const { resolvedTheme, setTheme } = useTheme()
+  const { brandSettings } = useAppState()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -135,6 +137,12 @@ export function Dashboard({ onNavigate }: DashboardProps) {
         <div>
           <h1 className="text-2xl font-bold text-foreground">Buen dia, Marcus</h1>
           <p className="text-muted-foreground mt-1">Martes, 31 de marzo de 2026</p>
+          <div className="mt-3 flex items-center gap-2">
+            <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary/10 overflow-hidden">
+              {brandSettings.logo ? <img src={brandSettings.logo} alt={brandSettings.brandName} className="h-full w-full object-cover" /> : <Sparkles className="w-4 h-4 text-primary" />}
+            </div>
+            <span className="text-sm font-medium text-foreground">{brandSettings.brandName || "Flowcut"}</span>
+          </div>
         </div>
         <div className="flex items-center gap-2">
           <Button

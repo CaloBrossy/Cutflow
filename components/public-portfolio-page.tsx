@@ -53,7 +53,7 @@ export function PublicPortfolioPage({
       page={page}
       mode="public"
       publicUrl={`/${page.slug}`}
-      bookingHref={`/?view=calendar&bookingFor=${page.slug}`}
+      bookingHref={`/dashboard?view=calendar&bookingFor=${page.slug}`}
     />
   )
 }

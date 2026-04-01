@@ -22,123 +22,17 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
-
-const clients = [
-  {
-    id: 1,
-    name: "James Wilson",
-    phone: "+1 (555) 123-4567",
-    email: "james.w@email.com",
-    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=200&h=200&fit=crop&crop=face",
-    initials: "JW",
-    visits: 24,
-    lastVisit: "Hoy",
-    totalSpent: 1080,
-    preferredService: "Fade + Barba",
-    loyaltyPoints: 480,
-    riskScore: "low",
-    nextSuggested: "En 2 semanas",
-    avgFrequency: "Cada 3 semanas",
-    notes: "Prefiere low fade, con atencion extra en el perfilado de barba",
-    photos: [
-      "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=200&h=200&fit=crop",
-      "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=200&h=200&fit=crop",
-      "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=200&h=200&fit=crop",
-    ],
-    vip: true
-  },
-  {
-    id: 2,
-    name: "Michael Brown",
-    phone: "+1 (555) 234-5678",
-    email: "m.brown@email.com",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face",
-    initials: "MB",
-    visits: 12,
-    lastVisit: "Hace 1 semana",
-    totalSpent: 540,
-    preferredService: "Corte clasico",
-    loyaltyPoints: 240,
-    riskScore: "low",
-    nextSuggested: "En 1 semana",
-    avgFrequency: "Cada 2 semanas",
-    notes: "Alergico a ciertos productos para el cabello",
-    photos: [
-      "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=200&h=200&fit=crop",
-    ],
-    vip: false
-  },
-  {
-    id: 3,
-    name: "Kevin Martinez",
-    phone: "+1 (555) 345-6789",
-    email: "kevin.m@email.com",
-    avatar: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=200&h=200&fit=crop&crop=face",
-    initials: "KM",
-    visits: 5,
-    lastVisit: "Hace 3 semanas",
-    totalSpent: 200,
-    preferredService: "Fade + Perfilado",
-    loyaltyPoints: 100,
-    riskScore: "high",
-    nextSuggested: "Atrasado",
-    avgFrequency: "Irregular",
-    notes: "Historial de ausencias, requiere sena",
-    photos: [],
-    vip: false
-  },
-  {
-    id: 4,
-    name: "David Chen",
-    phone: "+1 (555) 456-7890",
-    email: "david.c@email.com",
-    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=200&h=200&fit=crop&crop=face",
-    initials: "DC",
-    visits: 18,
-    lastVisit: "Hoy",
-    totalSpent: 890,
-    preferredService: "Skin fade + diseno",
-    loyaltyPoints: 380,
-    riskScore: "low",
-    nextSuggested: "En 3 semanas",
-    avgFrequency: "Cada 3 semanas",
-    notes: "Le encantan los disenos geometricos, mostrarle patrones nuevos",
-    photos: [
-      "https://images.unsplash.com/photo-1622286342621-4bd786c2447c?w=200&h=200&fit=crop",
-      "https://images.unsplash.com/photo-1599351431202-1e0f0137899a?w=200&h=200&fit=crop",
-    ],
-    vip: true
-  },
-  {
-    id: 5,
-    name: "Anthony Davis",
-    phone: "+1 (555) 567-8901",
-    email: "a.davis@email.com",
-    avatar: "https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=200&h=200&fit=crop&crop=face",
-    initials: "AD",
-    visits: 8,
-    lastVisit: "Hace 2 semanas",
-    totalSpent: 420,
-    preferredService: "Corte premium + Barba",
-    loyaltyPoints: 180,
-    riskScore: "medium",
-    nextSuggested: "Esta semana",
-    avgFrequency: "Cada 2-3 semanas",
-    notes: "Referido por James Wilson",
-    photos: [
-      "https://images.unsplash.com/photo-1621605815971-fbc98d665033?w=200&h=200&fit=crop",
-    ],
-    vip: false
-  },
-]
+import { useAppState } from "@/providers/app-state-provider"
 
 export function ClientProfile() {
-  const [selectedClient, setSelectedClient] = useState(clients[0])
+  const { clients, appointments, selectedClientId, selectClient, selectConversation } = useAppState()
   const [searchQuery, setSearchQuery] = useState("")
+  const selectedClient = clients.find((client) => client.id === selectedClientId) ?? clients[0]
 
   const filteredClients = clients.filter(client => 
     client.name.toLowerCase().includes(searchQuery.toLowerCase())
   )
+  const clientAppointments = appointments.filter((appointment) => appointment.clientId === selectedClient?.id && appointment.status !== "cancelled")
 
   return (
     <div className="p-4 md:p-6 lg:p-8">
@@ -191,11 +85,11 @@ export function ClientProfile() {
                 key={client.id}
                 className={cn(
                   "cursor-pointer transition-all hover:border-primary/50",
-                  selectedClient.id === client.id 
+                  selectedClient?.id === client.id 
                     ? "border-primary bg-primary/5" 
                     : "bg-card border-border"
                 )}
-                onClick={() => setSelectedClient(client)}
+                onClick={() => selectClient(client.id)}
               >
                 <CardContent className="p-4">
                   <div className="flex items-center gap-3">
@@ -268,7 +162,14 @@ export function ClientProfile() {
                         <Phone className="w-4 h-4 mr-2" />
                         Llamar
                       </Button>
-                      <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground">
+                      <Button size="sm" className="bg-primary hover:bg-primary/90 text-primary-foreground" onClick={() => {
+                        selectClient(selectedClient.id)
+                        const linked = clients.find((client) => client.id === selectedClient.id)
+                        if (linked) {
+                          const conversation = filteredClients.find((item) => item.id === linked.id)
+                          if (conversation) selectConversation(`conv-${linked.id.split("-")[1]}`)
+                        }
+                      }}>
                         <Calendar className="w-4 h-4 mr-2" />
                         Reservar
                       </Button>
@@ -344,6 +245,10 @@ export function ClientProfile() {
                 <div className="pt-2 border-t border-border">
                   <p className="text-sm text-muted-foreground mb-1">Notas</p>
                   <p className="text-sm text-foreground">{selectedClient.notes}</p>
+                </div>
+                <div className="pt-2 border-t border-border">
+                  <p className="text-sm text-muted-foreground mb-1">Proximos turnos</p>
+                  <p className="text-sm text-foreground">{clientAppointments.length ? `${clientAppointments.length} reservas activas` : "Sin reservas activas"}</p>
                 </div>
               </CardContent>
             </Card>

@@ -89,8 +89,8 @@ export const initialPortfolioPage: PortfolioPageData = {
   ctaText: "Reservar ahora",
   ctaSubtitle: "Reserva tu turno ahora y vive el servicio premium de barberia que mereces.",
   socialLinks: {
-    instagram: "https://instagram.com/clippr.studio",
-    twitter: "https://twitter.com/clipprstudio",
+    instagram: "https://instagram.com/flowcut.studio",
+    twitter: "https://twitter.com/flowcutstudio",
     phone: "tel:+541155555555",
     whatsapp: "https://wa.me/541155555555",
   },

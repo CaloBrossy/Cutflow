@@ -10,7 +10,7 @@ const inter = Inter({ subsets: ["latin"], variable: "--font-inter" });
 const _geistMono = Geist_Mono({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: 'Clippr - Gestion inteligente para barberias',
+  title: 'Flowcut - Gestion inteligente para barberias',
   description: 'La plataforma premium de turnos y gestion de clientes para barberias y salones modernos',
   generator: 'v0.app',
   icons: {
@@ -40,13 +40,13 @@ export default function RootLayout({
   return (
     <html lang="es" suppressHydrationWarning>
       <body className={`${inter.variable} font-sans antialiased`}>
-        <ThemeProvider>
-          <AppStateProvider>
+        <AppStateProvider>
+          <ThemeProvider>
             {children}
             <Toaster />
             <Analytics />
-          </AppStateProvider>
-        </ThemeProvider>
+          </ThemeProvider>
+        </AppStateProvider>
       </body>
     </html>
   )

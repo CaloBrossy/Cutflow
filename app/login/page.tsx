@@ -1,0 +1,148 @@
+"use client"
+
+import { useEffect, useState } from "react"
+import Link from "next/link"
+import { useRouter } from "next/navigation"
+import { ArrowRight, Calendar, Eye, EyeOff, Loader2, Palette, Scissors, Users } from "lucide-react"
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
+
+export default function LoginPage() {
+  const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
+  const [showPassword, setShowPassword] = useState(false)
+  const [error, setError] = useState("")
+  const [mounted, setMounted] = useState(false)
+  const [formData, setFormData] = useState({ email: "", password: "" })
+
+  useEffect(() => setMounted(true), [])
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setError("")
+    setIsLoading(true)
+    await new Promise((resolve) => setTimeout(resolve, 1200))
+
+    if (formData.email && formData.password) {
+      router.push("/dashboard")
+    } else {
+      setError("Por favor completa todos los campos")
+    }
+
+    setIsLoading(false)
+  }
+
+  return (
+    <div className="relative grid min-h-screen overflow-hidden lg:grid-cols-2">
+      <div className="absolute inset-0 -z-10">
+        <div className="absolute right-1/4 top-1/4 h-[600px] w-[600px] rounded-full bg-accent/10 blur-[150px]" />
+        <div className="absolute bottom-1/4 left-1/4 h-[400px] w-[400px] rounded-full bg-accent/5 blur-[120px]" />
+      </div>
+
+      <div className="relative hidden flex-col justify-between overflow-hidden p-12 lg:flex">
+        <div className="absolute inset-0 -z-10">
+          <video autoPlay muted loop playsInline className="h-full w-full object-cover opacity-30">
+            <source src="https://videos.pexels.com/video-files/7518359/7518359-hd_1920_1080_25fps.mp4" type="video/mp4" />
+          </video>
+          <div className="absolute inset-0 bg-gradient-to-br from-background via-background/95 to-background/90" />
+        </div>
+
+        <div className={`transition-all duration-700 ${mounted ? "translate-y-0 opacity-100" : "-translate-y-4 opacity-0"}`}>
+          <Link href="/" className="group flex items-center gap-3">
+            <div className="relative flex h-11 w-11 items-center justify-center rounded-xl bg-accent transition-transform duration-300 group-hover:scale-110">
+              <Scissors className="h-5 w-5 text-accent-foreground" />
+              <div className="absolute inset-0 rounded-xl bg-accent opacity-0 blur-xl transition-opacity group-hover:opacity-50" />
+            </div>
+            <span className="text-2xl font-bold tracking-tight">Flowcut</span>
+          </Link>
+        </div>
+
+        <div className="space-y-8">
+          <div className={`transition-all duration-700 delay-100 ${mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
+            <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
+              Bienvenido
+              <br />
+              <span className="text-accent">de vuelta</span>
+            </h1>
+            <p className="mt-4 max-w-md text-lg text-muted-foreground">
+              Accede a tu cuenta para gestionar reservas, clientes y tu marca.
+            </p>
+          </div>
+
+          <div className={`space-y-4 transition-all duration-700 delay-200 ${mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
+            {[
+              { icon: Calendar, text: "Gestiona tu agenda desde cualquier lugar" },
+              { icon: Users, text: "Mantén el contacto con tus clientes" },
+              { icon: Palette, text: "Personaliza tu página pública" },
+            ].map((item, i) => (
+              <div key={i} className="flex items-center gap-4 rounded-xl border border-border/50 bg-card/30 p-4 backdrop-blur-sm transition-all hover:border-accent/30">
+                <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent/20 text-accent">
+                  <item.icon className="h-5 w-5" />
+                </div>
+                <span className="text-muted-foreground">{item.text}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <p className={`text-sm text-muted-foreground transition-all duration-700 delay-300 ${mounted ? "opacity-100" : "opacity-0"}`}>
+          © {new Date().getFullYear()} Flowcut. Todos los derechos reservados.
+        </p>
+      </div>
+
+      <div className="flex items-center justify-center p-6 lg:p-12">
+        <div className={`w-full max-w-md space-y-8 transition-all duration-700 delay-100 ${mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
+          <div className="lg:hidden">
+            <Link href="/" className="flex items-center gap-3">
+              <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent">
+                <Scissors className="h-5 w-5 text-accent-foreground" />
+              </div>
+              <span className="text-2xl font-bold tracking-tight">Flowcut</span>
+            </Link>
+          </div>
+
+          <div>
+            <h2 className="text-3xl font-bold tracking-tight">Ingresar</h2>
+            <p className="mt-2 text-muted-foreground">Ingresa tus credenciales para acceder al panel</p>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {error && <div className="rounded-xl border border-destructive/50 bg-destructive/10 p-4 text-sm text-destructive">{error}</div>}
+
+            <div className="space-y-5">
+              <div className="space-y-2">
+                <Label htmlFor="email">Email</Label>
+                <Input id="email" type="email" placeholder="tu@email.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} disabled={isLoading} required className="h-12 rounded-xl border-border/50 bg-card/50 px-4" />
+              </div>
+
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <Label htmlFor="password">Contraseña</Label>
+                  <Link href="#" className="text-sm text-accent transition-colors hover:text-accent/80">¿Olvidaste tu contraseña?</Link>
+                </div>
+                <div className="relative">
+                  <Input id="password" type={showPassword ? "text" : "password"} placeholder="••••••••" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} disabled={isLoading} required className="h-12 rounded-xl border-border/50 bg-card/50 px-4 pr-12" />
+                  <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
+                    {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <Button type="submit" className="glow-accent h-12 w-full rounded-xl text-base font-semibold transition-all hover:scale-[1.02]" disabled={isLoading}>
+              {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Ingresando...</> : <>Ingresar<ArrowRight className="ml-2 h-5 w-5" /></>}
+            </Button>
+          </form>
+
+          <div className="text-center text-sm text-muted-foreground">
+            ¿No tienes cuenta?{" "}
+            <Link href="/register" className="font-semibold text-accent transition-colors hover:text-accent/80">
+              Crear cuenta gratis
+            </Link>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}

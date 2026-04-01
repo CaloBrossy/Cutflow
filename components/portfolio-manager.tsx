@@ -12,9 +12,9 @@ import { useAppState } from "@/providers/app-state-provider"
 import { toast } from "@/hooks/use-toast"
 
 export function PortfolioManager() {
-  const { portfolioPage, setPortfolioStatus } = useAppState()
+  const { portfolioPage, brandSettings, setPortfolioStatus } = useAppState()
   const publicPath = `/${portfolioPage.slug}`
-  const bookingHref = `/?view=calendar&bookingFor=${portfolioPage.slug}`
+  const bookingHref = `/dashboard?view=calendar&bookingFor=${portfolioPage.slug}`
 
   return (
     <div className="p-4 md:p-6 lg:p-8 space-y-6">
@@ -61,6 +61,24 @@ export function PortfolioManager() {
           </CardContent>
         </Card>
       </div>
+
+      <Card className="bg-card border-border">
+        <CardContent className="p-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+          <div className="flex items-center gap-4">
+            <div className="flex h-14 w-14 items-center justify-center rounded-2xl bg-primary/10 overflow-hidden">
+              {brandSettings.logo ? <img src={brandSettings.logo} alt={brandSettings.brandName} className="h-full w-full object-cover" /> : <Globe className="w-6 h-6 text-primary" />}
+            </div>
+            <div>
+              <p className="font-semibold text-foreground">{brandSettings.brandName || portfolioPage.businessName}</p>
+              <p className="text-sm text-muted-foreground">Tu branding tambien se aplica a la landing publica.</p>
+            </div>
+          </div>
+          <div className="flex gap-2">
+            <Badge style={{ backgroundColor: brandSettings.palette.primary, color: "#fff" }}>Primario</Badge>
+            <Badge style={{ backgroundColor: brandSettings.palette.accent, color: "#fff" }}>Acento</Badge>
+          </div>
+        </CardContent>
+      </Card>
 
       <Tabs defaultValue="preview" className="gap-4">
         <TabsList>
