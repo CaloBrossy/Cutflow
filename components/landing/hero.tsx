@@ -29,39 +29,39 @@ export function Hero() {
         <div className="mx-auto max-w-5xl">
           <Reveal delay={0.1}>
             <div className="mb-8 flex justify-center">
-              <div className="relative inline-flex items-center gap-2 rounded-full border border-border/50 bg-background/30 px-5 py-2 text-sm backdrop-blur-xl">
+              <div className="glass-street relative inline-flex items-center gap-2 rounded-full border border-accent/15 px-5 py-2 text-sm shadow-lg shadow-black/20 backdrop-blur-xl">
                 <span className="relative flex h-2 w-2">
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-accent opacity-75" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-accent" />
                 </span>
-                <span className="text-muted-foreground">La plataforma para barberías modernas</span>
+                <span className="street-kicker text-[11px] text-muted-foreground">Street booking system</span>
               </div>
             </div>
           </Reveal>
 
           <div className="text-center">
-            <h1 className="text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl lg:text-8xl">
-              <TextReveal text="Gestiona tu barbería" className="justify-center text-foreground" delay={0.2} as="span" />
+            <h1 className="street-title text-5xl sm:text-6xl md:text-7xl lg:text-[7rem]">
+              <TextReveal text="Own the chair" className="justify-center text-foreground" delay={0.2} as="span" />
               <br />
-              <TextReveal text="como un profesional" className="justify-center text-accent" delay={0.4} as="span" />
+              <TextReveal text="run the shop" className="accent-gradient-text accent-glow-text justify-center" delay={0.4} as="span" />
             </h1>
           </div>
 
           <Reveal delay={0.6} className="mt-8 text-center">
-            <p className="mx-auto max-w-2xl text-xl leading-relaxed text-muted-foreground md:text-2xl">
-              Centraliza reservas, agenda y clientes en un solo lugar.
-              <span className="text-foreground"> Haz que tu negocio se vea más premium.</span>
+            <p className="mx-auto max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
+              Reservas, agenda y clientes en un sistema con presencia.
+              <span className="text-foreground"> Flowcut se siente como una marca, no como un admin genérico.</span>
             </p>
           </Reveal>
 
           <Reveal delay={0.8} className="mt-12 flex flex-col items-center justify-center gap-4 sm:flex-row">
             <Magnetic>
-              <Button size="lg" asChild className="glow-accent magnetic-btn h-14 rounded-full px-10 text-lg">
+              <Button size="lg" asChild className="glow-accent magnetic-btn h-14 rounded-full border border-accent/20 bg-accent px-10 text-lg hover:scale-[1.03] hover:shadow-[0_0_40px_oklch(0.75_0.18_165_/_0.45)]">
                 <Link href="/register">Probar gratis<ArrowRight className="ml-2 h-5 w-5" /></Link>
               </Button>
             </Magnetic>
             <Magnetic>
-              <Button variant="outline" size="lg" asChild className="magnetic-btn h-14 rounded-full border-border/50 bg-background/30 px-10 text-lg backdrop-blur-xl hover:bg-background/50">
+              <Button variant="outline" size="lg" asChild className="glass-street magnetic-btn h-14 rounded-full border-border/50 px-10 text-lg hover:scale-[1.02] hover:border-accent/30 hover:bg-background/50">
                 <Link href="#producto"><Play className="mr-2 h-5 w-5" />Ver demo</Link>
               </Button>
             </Magnetic>
@@ -75,8 +75,8 @@ export function Hero() {
                 { value: 98, suffix: "%", label: "Satisfacción" },
               ].map((stat) => (
                 <div key={stat.label} className="text-center">
-                  <p className="text-4xl font-bold text-foreground md:text-5xl"><Counter end={stat.value} suffix={stat.suffix} /></p>
-                  <p className="mt-2 text-sm text-muted-foreground">{stat.label}</p>
+                  <p className="street-title accent-glow-text text-4xl text-foreground md:text-5xl"><Counter end={stat.value} suffix={stat.suffix} duration={2.6} /></p>
+                  <p className="street-kicker mt-3 text-[10px] text-muted-foreground">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -87,8 +87,8 @@ export function Hero() {
           <Reveal delay={1.2}>
             <div className="perspective-1000 relative mx-auto max-w-6xl">
               <div className="absolute -inset-8 rounded-3xl bg-accent/30 blur-3xl opacity-50" />
-              <div className="relative overflow-hidden rounded-2xl border border-border/50 bg-card/80 shadow-2xl backdrop-blur-xl" style={{ transform: `rotateX(${mouse.y * 2}deg) rotateY(${mouse.x * -2}deg)` }}>
-                <div className="flex items-center gap-2 border-b border-border/50 bg-secondary/30 px-4 py-3">
+              <div className="glass-street panel-glow relative overflow-hidden rounded-[28px] border border-accent/10 shadow-2xl" style={{ transform: `rotateX(${mouse.y * 2}deg) rotateY(${mouse.x * -2}deg)` }}>
+                <div className="flex items-center gap-2 border-b border-border/50 bg-secondary/20 px-4 py-3">
                   <div className="flex gap-1.5">
                     <div className="h-3 w-3 rounded-full bg-red-500/80" />
                     <div className="h-3 w-3 rounded-full bg-yellow-500/80" />
@@ -98,9 +98,11 @@ export function Hero() {
                 </div>
                 <div className="grid grid-cols-1 gap-4 p-6 md:grid-cols-3">
                   <div className="space-y-4 md:col-span-1">
-                    <div className="flex items-center gap-3 rounded-xl bg-secondary/50 p-4">
-                      <div className="glow-accent flex h-12 w-12 items-center justify-center rounded-xl bg-accent"><span className="text-xl font-bold text-accent-foreground">B</span></div>
-                      <div><p className="font-semibold">Barber Studio</p><p className="text-xs text-muted-foreground">Plan Pro</p></div>
+                    <div className="rounded-2xl border border-accent/10 bg-secondary/40 p-4 shadow-lg shadow-black/20">
+                      <div className="flex items-center gap-3">
+                        <div className="glow-accent flex h-12 w-12 items-center justify-center rounded-xl bg-accent"><span className="text-xl font-bold text-accent-foreground">B</span></div>
+                        <div><p className="font-semibold">Barber Studio</p><p className="text-xs text-muted-foreground">Plan Pro</p></div>
+                      </div>
                     </div>
                     <nav className="space-y-1">
                       {[
@@ -108,7 +110,7 @@ export function Hero() {
                         { icon: Users, label: "Clientes", active: false },
                         { icon: Palette, label: "Mi Marca", active: false },
                       ].map((item) => (
-                        <div key={item.label} className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm transition-all ${item.active ? "bg-accent text-accent-foreground shadow-lg shadow-accent/20" : "text-muted-foreground hover:bg-secondary/50"}`}>
+                        <div key={item.label} className={`flex items-center gap-3 rounded-xl px-4 py-3 text-sm transition-all ${item.active ? "glow-accent bg-accent text-accent-foreground shadow-lg shadow-accent/30" : "text-muted-foreground hover:bg-secondary/50 hover:text-foreground"}`}>
                           <item.icon className="h-4 w-4" />
                           {item.label}
                         </div>
@@ -123,7 +125,7 @@ export function Hero() {
                         { time: "11:30", name: "Diego R.", service: "Corte clásico", status: "pendiente" },
                         { time: "14:00", name: "Andrés L.", service: "Barba completa", status: "confirmado" },
                       ].map((apt, i) => (
-                        <div key={i} className="flex items-center justify-between rounded-xl border border-border/50 bg-background/30 p-4 backdrop-blur-sm transition-all hover:border-accent/30 hover:bg-background/50">
+                        <div key={i} className="flex items-center justify-between rounded-xl border border-border/50 bg-background/30 p-4 backdrop-blur-sm transition-all hover:border-accent/30 hover:bg-background/50 hover:shadow-[0_0_30px_oklch(0.75_0.18_165_/_0.12)]">
                           <div className="flex items-center gap-4">
                             <span className="rounded-lg bg-secondary/50 px-3 py-1 font-mono text-sm text-muted-foreground">{apt.time}</span>
                             <div><p className="font-medium">{apt.name}</p><p className="text-sm text-muted-foreground">{apt.service}</p></div>

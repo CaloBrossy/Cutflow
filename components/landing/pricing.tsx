@@ -24,10 +24,10 @@ export function Pricing() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-16 max-w-3xl text-center">
-          <Reveal><p className="mb-4 text-sm font-medium uppercase tracking-widest text-accent">Precios</p></Reveal>
-          <h2 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-            <TextReveal text="Planes simples," className="justify-center" as="span" /><br />
-            <TextReveal text="sin sorpresas" className="justify-center text-accent" delay={0.2} as="span" />
+          <Reveal><p className="street-kicker mb-4 text-[11px] font-medium text-accent">Precios</p></Reveal>
+          <h2 className="street-title mb-6 text-4xl sm:text-5xl md:text-6xl">
+            <TextReveal text="Simple plans" className="justify-center" as="span" /><br />
+            <TextReveal text="sharp value" className="accent-gradient-text justify-center" delay={0.2} as="span" />
           </h2>
           <Reveal delay={0.4}><p className="text-xl text-muted-foreground">Empieza gratis, escala cuando quieras. Sin letra pequeña.</p></Reveal>
 
@@ -45,7 +45,7 @@ export function Pricing() {
           {plans.map((plan, i) => (
             <Reveal key={plan.name} delay={0.1 * i}>
               <div className="h-full">
-                {plan.highlighted ? <GlowingBorder className="h-full"><PlanCard plan={plan} isYearly={isYearly} /></GlowingBorder> : <div className="h-full rounded-2xl border border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-300 hover:border-border"><PlanCard plan={plan} isYearly={isYearly} /></div>}
+                {plan.highlighted ? <GlowingBorder className="h-full"><PlanCard plan={plan} isYearly={isYearly} /></GlowingBorder> : <div className="glass-street h-full rounded-2xl border border-border/50 transition-all duration-300 hover:border-accent/20 hover:shadow-[0_0_35px_oklch(0.75_0.18_165_/_0.08)]"><PlanCard plan={plan} isYearly={isYearly} /></div>}
               </div>
             </Reveal>
           ))}
@@ -59,7 +59,7 @@ function PlanCard({ plan, isYearly }: { plan: (typeof plans)[0]; isYearly: boole
   return (
     <div className="relative flex h-full flex-col p-8">
       {plan.badge && <span className="absolute -top-3 left-1/2 inline-flex -translate-x-1/2 items-center gap-1 rounded-full bg-accent px-4 py-1.5 text-xs font-semibold text-accent-foreground shadow-lg shadow-accent/30"><Sparkles className="h-3 w-3" />{plan.badge}</span>}
-      <div className="mb-6"><h3 className={cn("text-2xl font-bold", plan.highlighted && "text-accent")}>{plan.name}</h3><p className="mt-2 text-sm text-muted-foreground">{plan.description}</p></div>
+      <div className="mb-6"><h3 className={cn("street-title text-2xl", plan.highlighted && "accent-gradient-text")}>{plan.name}</h3><p className="mt-2 text-sm text-muted-foreground">{plan.description}</p></div>
       <div className="mb-8"><div className="flex items-baseline gap-1"><span className="text-5xl font-bold">${isYearly ? plan.priceYearly : plan.priceMonthly}</span><span className="text-muted-foreground">/mes</span></div></div>
       <ul className="mb-8 flex-1 space-y-4">
         {plan.features.map((feature) => (
@@ -69,7 +69,7 @@ function PlanCard({ plan, isYearly }: { plan: (typeof plans)[0]; isYearly: boole
           </li>
         ))}
       </ul>
-      <Button asChild className={cn("h-12 w-full rounded-xl font-semibold", plan.highlighted ? "bg-accent text-accent-foreground shadow-lg shadow-accent/30 hover:bg-accent/90" : "bg-secondary text-secondary-foreground hover:bg-secondary/80")}>
+      <Button asChild className={cn("magnetic-btn h-12 w-full rounded-xl font-semibold", plan.highlighted ? "bg-accent text-accent-foreground shadow-lg shadow-accent/30 hover:scale-[1.02] hover:bg-accent/90" : "bg-secondary text-secondary-foreground hover:scale-[1.02] hover:bg-secondary/80")}>
         <Link href="/register">{plan.cta}</Link>
       </Button>
     </div>

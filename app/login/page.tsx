@@ -35,7 +35,7 @@ export default function LoginPage() {
 
   return (
     <div className="relative grid min-h-screen overflow-hidden lg:grid-cols-2">
-      <div className="absolute inset-0 -z-10">
+      <div className="noise absolute inset-0 -z-10">
         <div className="absolute right-1/4 top-1/4 h-[600px] w-[600px] rounded-full bg-accent/10 blur-[150px]" />
         <div className="absolute bottom-1/4 left-1/4 h-[400px] w-[400px] rounded-full bg-accent/5 blur-[120px]" />
       </div>
@@ -54,16 +54,16 @@ export default function LoginPage() {
               <Scissors className="h-5 w-5 text-accent-foreground" />
               <div className="absolute inset-0 rounded-xl bg-accent opacity-0 blur-xl transition-opacity group-hover:opacity-50" />
             </div>
-            <span className="text-2xl font-bold tracking-tight">Flowcut</span>
+            <span className="street-title text-2xl">Flowcut</span>
           </Link>
         </div>
 
         <div className="space-y-8">
           <div className={`transition-all duration-700 delay-100 ${mounted ? "translate-y-0 opacity-100" : "translate-y-8 opacity-0"}`}>
-            <h1 className="text-4xl font-bold tracking-tight md:text-5xl">
-              Bienvenido
+            <h1 className="street-title text-4xl md:text-5xl">
+              Back
               <br />
-              <span className="text-accent">de vuelta</span>
+              <span className="accent-gradient-text accent-glow-text">on the chair</span>
             </h1>
             <p className="mt-4 max-w-md text-lg text-muted-foreground">
               Accede a tu cuenta para gestionar reservas, clientes y tu marca.
@@ -76,7 +76,7 @@ export default function LoginPage() {
               { icon: Users, text: "Mantén el contacto con tus clientes" },
               { icon: Palette, text: "Personaliza tu página pública" },
             ].map((item, i) => (
-              <div key={i} className="flex items-center gap-4 rounded-xl border border-border/50 bg-card/30 p-4 backdrop-blur-sm transition-all hover:border-accent/30">
+              <div key={i} className="glass-street flex items-center gap-4 rounded-xl border border-border/50 p-4 transition-all hover:border-accent/30 hover:shadow-[0_0_30px_oklch(0.75_0.18_165_/_0.12)]">
                 <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-accent/20 text-accent">
                   <item.icon className="h-5 w-5" />
                 </div>
@@ -98,12 +98,12 @@ export default function LoginPage() {
               <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-accent">
                 <Scissors className="h-5 w-5 text-accent-foreground" />
               </div>
-              <span className="text-2xl font-bold tracking-tight">Flowcut</span>
+              <span className="street-title text-2xl">Flowcut</span>
             </Link>
           </div>
 
           <div>
-            <h2 className="text-3xl font-bold tracking-tight">Ingresar</h2>
+            <h2 className="street-title text-3xl">Ingresar</h2>
             <p className="mt-2 text-muted-foreground">Ingresa tus credenciales para acceder al panel</p>
           </div>
 
@@ -113,7 +113,7 @@ export default function LoginPage() {
             <div className="space-y-5">
               <div className="space-y-2">
                 <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" placeholder="tu@email.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} disabled={isLoading} required className="h-12 rounded-xl border-border/50 bg-card/50 px-4" />
+                <Input id="email" type="email" placeholder="tu@email.com" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} disabled={isLoading} required className="h-12 rounded-xl border-border/50 bg-card/50 px-4 transition-all focus:border-accent/40 focus:shadow-[0_0_0_1px_oklch(0.75_0.18_165_/_0.2),0_0_28px_oklch(0.75_0.18_165_/_0.12)]" />
               </div>
 
               <div className="space-y-2">
@@ -122,7 +122,7 @@ export default function LoginPage() {
                   <Link href="#" className="text-sm text-accent transition-colors hover:text-accent/80">¿Olvidaste tu contraseña?</Link>
                 </div>
                 <div className="relative">
-                  <Input id="password" type={showPassword ? "text" : "password"} placeholder="••••••••" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} disabled={isLoading} required className="h-12 rounded-xl border-border/50 bg-card/50 px-4 pr-12" />
+                  <Input id="password" type={showPassword ? "text" : "password"} placeholder="••••••••" value={formData.password} onChange={(e) => setFormData({ ...formData, password: e.target.value })} disabled={isLoading} required className="h-12 rounded-xl border-border/50 bg-card/50 px-4 pr-12 transition-all focus:border-accent/40 focus:shadow-[0_0_0_1px_oklch(0.75_0.18_165_/_0.2),0_0_28px_oklch(0.75_0.18_165_/_0.12)]" />
                   <button type="button" onClick={() => setShowPassword(!showPassword)} className="absolute right-4 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground">
                     {showPassword ? <EyeOff className="h-5 w-5" /> : <Eye className="h-5 w-5" />}
                   </button>
@@ -130,7 +130,7 @@ export default function LoginPage() {
               </div>
             </div>
 
-            <Button type="submit" className="glow-accent h-12 w-full rounded-xl text-base font-semibold transition-all hover:scale-[1.02]" disabled={isLoading}>
+            <Button type="submit" className="glow-accent magnetic-btn h-12 w-full rounded-xl border border-accent/20 text-base font-semibold transition-all hover:scale-[1.02] hover:shadow-[0_0_40px_oklch(0.75_0.18_165_/_0.35)]" disabled={isLoading}>
               {isLoading ? <><Loader2 className="mr-2 h-5 w-5 animate-spin" />Ingresando...</> : <>Ingresar<ArrowRight className="ml-2 h-5 w-5" /></>}
             </Button>
           </form>

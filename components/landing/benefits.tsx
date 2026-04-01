@@ -22,10 +22,10 @@ export function Benefits() {
 
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         <div className="mx-auto mb-20 max-w-3xl text-center">
-          <Reveal><p className="mb-4 text-sm font-medium uppercase tracking-widest text-accent">Funcionalidades</p></Reveal>
-          <h2 className="mb-6 text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
-            <TextReveal text="Todo lo que necesitas" className="justify-center" as="span" /><br />
-            <TextReveal text="para crecer" className="justify-center text-accent" delay={0.3} as="span" />
+          <Reveal><p className="street-kicker mb-4 text-[11px] font-medium text-accent">Funcionalidades</p></Reveal>
+          <h2 className="street-title mb-6 text-4xl sm:text-5xl md:text-6xl">
+            <TextReveal text="Everything in sync" className="justify-center" as="span" /><br />
+            <TextReveal text="built to move" className="accent-gradient-text justify-center" delay={0.3} as="span" />
           </h2>
           <Reveal delay={0.4}><p className="text-xl text-muted-foreground">Deja de perder tiempo con herramientas separadas. <span className="text-foreground">Flowcut centraliza todo en un solo lugar.</span></p></Reveal>
         </div>
@@ -37,10 +37,10 @@ export function Benefits() {
                 <div className="group relative h-full p-8">
                   <div className={`absolute inset-0 rounded-2xl bg-gradient-to-br ${benefit.gradient} opacity-0 transition-opacity duration-500 group-hover:opacity-100`} />
                   <div className="relative">
-                    <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent transition-all duration-300 group-hover:scale-110 group-hover:bg-accent group-hover:text-accent-foreground">
+                    <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-2xl bg-accent/10 text-accent transition-all duration-300 group-hover:scale-110 group-hover:bg-accent group-hover:text-accent-foreground group-hover:shadow-[0_0_24px_oklch(0.75_0.18_165_/_0.3)]">
                       <benefit.icon className="h-7 w-7" />
                     </div>
-                    <h3 className="mb-3 text-xl font-semibold">{benefit.title}</h3>
+                    <h3 className="mb-3 text-xl font-extrabold tracking-[-0.04em]">{benefit.title}</h3>
                     <p className="leading-relaxed text-muted-foreground">{benefit.description}</p>
                   </div>
                 </div>
